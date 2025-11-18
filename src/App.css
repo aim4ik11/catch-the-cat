@@ -1,0 +1,231 @@
+:root {
+  --hex-size: clamp(60px, min(8vw, 11vh), 120px);
+  --hex-gap: calc(var(--hex-size) * 0.12);
+  --cat-size: calc(var(--hex-size) * 0.6);
+}
+
+.app {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto 4rem;
+  padding: 3rem 1.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  color: #f8fbff;
+}
+
+.panel {
+  width: min(100%, 1352px);
+  margin: 0 auto;
+  background: rgba(11, 19, 32, 0.85);
+  padding: 2rem;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+}
+
+.panel__header h1 {
+  font-size: 2.3rem;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.03em;
+}
+
+.panel__header p {
+  margin: 0;
+  color: rgba(248, 251, 255, 0.85);
+  line-height: 1.5;
+}
+
+.status-line {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin: 1.5rem 0;
+}
+
+.status-line .moves {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #9ad3ff;
+}
+
+.status-pill {
+  padding: 0.6rem 0.9rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.status-won {
+  background: linear-gradient(120deg, #2bb673, #7cd77c);
+  color: #021405;
+}
+
+.status-lost {
+  background: linear-gradient(120deg, #ff5f6d, #ffc371);
+  color: #2b060b;
+}
+
+.status-playing {
+  background: linear-gradient(120deg, #4181ff, #72f5ff);
+  color: #001233;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.actions button {
+  flex: 1 1 120px;
+  padding: 0.85rem 1.25rem;
+  border-radius: 16px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease,
+    opacity 200ms ease;
+}
+
+.actions button:first-child {
+  background: linear-gradient(120deg, #ffb347, #ffcc33);
+  color: #2a1600;
+}
+
+.actions button:last-child {
+  background: linear-gradient(120deg, #6a11cb, #2575fc);
+  color: #f8fbff;
+}
+
+.actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.actions button:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
+}
+
+.rules {
+  margin: 1.75rem 0 0;
+  padding-left: 1.2rem;
+  color: rgba(248, 251, 255, 0.75);
+  line-height: 1.6;
+}
+
+.board {
+  width: min(100%, 1352px);
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  background: rgba(7, 13, 22, 0.35);
+  border-radius: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    inset 0 0 60px rgba(0, 0, 0, 0.45),
+    0 20px 45px rgba(0, 0, 0, 0.35);
+  position: relative;
+}
+
+.board::after {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border-radius: 30px;
+  pointer-events: none;
+  border: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+.hexgrid-wrapper {
+  width: 100%;
+  height: clamp(400px, 55vw, 720px);
+}
+
+.hexgrid-wrapper svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hexagon {
+  cursor: pointer;
+  transition: transform 200ms ease;
+  transform-origin: center;
+}
+
+.hexagon polygon {
+  fill: rgba(4, 14, 27, 0.3);
+  stroke: rgba(255, 255, 255, 0.35);
+  stroke-width: 0.25;
+}
+
+.hexagon-texture__image {
+  display: none;
+}
+
+.hexagon polygon {
+  fill: rgba(38, 68, 105, 0.95);
+  transition:
+    fill 200ms ease,
+    stroke 200ms ease;
+}
+
+.hexagon--blocked .hexagon-texture__image {
+  display: none;
+}
+
+.hexagon--blocked polygon {
+  fill: rgba(20, 20, 20, 0.9);
+  stroke: rgba(255, 255, 255, 0.15);
+}
+
+.hexagon--cat polygon {
+  fill: rgba(32, 51, 84, 0.95);
+  stroke: rgba(255, 255, 255, 0.9);
+  stroke-width: 0.4;
+}
+
+.hexagon-cat image {
+  pointer-events: none;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.45));
+}
+
+.hexagon--disabled {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.hexagon:focus-visible {
+  outline: none;
+}
+
+.hexagon:focus-visible polygon {
+  stroke: #ffb347;
+  stroke-width: 0.35;
+}
+
+.hex-debug-label {
+  font-size: 0.09rem;
+  fill: rgba(255, 255, 255, 0.75);
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .panel,
+  .board {
+    width: 100%;
+  }
+
+  .hexgrid-wrapper {
+    height: clamp(320px, 70vw, 520px);
+  }
+}
