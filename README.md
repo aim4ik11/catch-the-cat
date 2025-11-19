@@ -2,7 +2,8 @@
 
 A web-based puzzle game where you must trap a cat by strategically blocking hex tiles before it reaches the edge of the board. Built with React, TypeScript, and Vite.
 
-![Game Screenshot](https://via.placeholder.com/800x400?text=Catch+the+Cat+Game)
+![Game Screenshot](./src/assets/screenshots/catch-the-cat-demo.png)
+
 
 ## 🎮 How to Play
 
