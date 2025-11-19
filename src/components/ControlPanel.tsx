@@ -4,24 +4,48 @@ type ControlPanelProps = {
   status: GameStatus
   moveCount: number
   statusCopy: Record<GameStatus, string>
+  difficulty: string
+  difficultyOptions: { value: string; label: string }[]
+  onDifficultyChange: (value: string) => void
   onHint: () => void
-  onReset: () => void
+  onStart: () => void
 }
 
 export const ControlPanel = ({
   status,
   moveCount,
   statusCopy,
+  difficulty,
+  difficultyOptions,
+  onDifficultyChange,
   onHint,
-  onReset,
+  onStart,
 }: ControlPanelProps) => (
   <>
     <div className="panel__header">
       <h1>Catch the Cat</h1>
       <p>
-        Inspired by the original Unity mini-game. Block hex tiles to keep the
-        cat from reaching the edge of the board.
+        Block hex tiles to keep the cat from reaching the edge. Difficulty
+        shifts according to the BFS path the cat can calculate and the number
+        of predefined obstacles already seeded on the map.
       </p>
+      <div className="difficulty-picker">
+        <label htmlFor="difficulty-select">Difficulty</label>
+        <div className="difficulty-controls">
+          <select
+            id="difficulty-select"
+            value={difficulty}
+            onChange={(event) => onDifficultyChange(event.target.value)}
+          >
+            {difficultyOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+          <button onClick={onStart}>Start game</button>
+        </div>
+      </div>
     </div>
 
     <div className="status-line">
@@ -32,9 +56,6 @@ export const ControlPanel = ({
     <div className="actions">
       <button onClick={onHint} disabled={status !== 'playing'}>
         Hint
-      </button>
-      <button onClick={onReset}>
-        {status === 'playing' ? 'Reset' : 'Play again'}
       </button>
     </div>
 

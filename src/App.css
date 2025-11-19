@@ -37,6 +37,75 @@
   line-height: 1.5;
 }
 
+.difficulty-picker {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.difficulty-picker label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(154, 211, 255, 0.9);
+}
+
+.difficulty-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.difficulty-controls select {
+  flex: 1 1 220px;
+  padding: 0.85rem 1rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(18, 30, 48, 0.85);
+  color: #f8fbff;
+  font-size: 1rem;
+  font-weight: 600;
+  appearance: none;
+  outline: none;
+  transition:
+    border 200ms ease,
+    box-shadow 200ms ease,
+    transform 200ms ease;
+}
+
+.difficulty-controls select:focus {
+  border-color: rgba(114, 245, 255, 0.9);
+  box-shadow: 0 0 0 3px rgba(114, 245, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.difficulty-controls button {
+  flex: 0 0 auto;
+  padding: 0.85rem 1.5rem;
+  border-radius: 16px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(120deg, #6a11cb, #2575fc);
+  color: #f8fbff;
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.difficulty-controls button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+}
+
+.difficulty-controls button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
 .status-line {
   display: flex;
   flex-direction: column;

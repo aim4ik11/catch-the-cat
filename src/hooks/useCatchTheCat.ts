@@ -21,7 +21,7 @@ export type LayoutConfig = {
 
 const GRID_WIDTH = 11
 const GRID_HEIGHT = 11
-const INITIAL_BLOCKERS = 10
+export const DEFAULT_BLOCKERS = 10
 
 const FLAT_ORIENTATION = {
   f0: 1.5,
@@ -212,7 +212,7 @@ const advanceCat = (
   return { grid, cat: nextStep, status }
 }
 
-const createGameState = (): GameState => {
+const createGameState = (blockedCount = DEFAULT_BLOCKERS): GameState => {
   const grid = createGrid()
   const cat = {
     x: Math.floor(GRID_WIDTH / 2),
@@ -220,7 +220,7 @@ const createGameState = (): GameState => {
   }
 
   grid[cat.x][cat.y] = { ...grid[cat.x][cat.y], hasCat: true }
-  seedBlockedCells(grid, cat, INITIAL_BLOCKERS)
+  seedBlockedCells(grid, cat, blockedCount)
 
   return {
     grid,
@@ -230,8 +230,10 @@ const createGameState = (): GameState => {
   }
 }
 
-export const useCatchTheCat = () => {
-  const [game, setGame] = useState<GameState>(() => createGameState())
+export const useCatchTheCat = (initialBlockers = DEFAULT_BLOCKERS) => {
+  const [game, setGame] = useState<GameState>(() =>
+    createGameState(initialBlockers),
+  )
 
   const layoutConfig = useMemo<LayoutConfig>(
     () => ({
@@ -295,8 +297,8 @@ export const useCatchTheCat = () => {
     } ${maxY - minY + paddingY * 2}`
   }, [hexCells, layoutConfig.size.x, layoutConfig.size.y, layoutDimension])
 
-  const resetGame = () => {
-    setGame(createGameState())
+  const resetGame = (blockedCount = initialBlockers) => {
+    setGame(createGameState(blockedCount))
   }
 
   const handleCellClick = (x: number, y: number) => {

@@ -6,10 +6,11 @@ A web-based puzzle game where you must trap a cat by strategically blocking hex 
 
 ## 🎮 How to Play
 
-1. **Click** on any open hex tile to place a blocker
-2. The cat will automatically move one step toward the nearest edge each turn
-3. **Win** by blocking all possible paths to the edge, trapping the cat
-4. **Lose** if the cat reaches any edge of the board
+1. **Pick a difficulty** from the dropdown and press **Start game** to seed the board (fewer seeded blockers = harder).
+2. **Click** on any open hex tile to place a blocker
+3. The cat will automatically move one step toward the nearest edge each turn
+4. **Win** by blocking all possible paths to the edge, trapping the cat
+5. **Lose** if the cat reaches any edge of the board
 
 ### Features
 
@@ -17,6 +18,11 @@ A web-based puzzle game where you must trap a cat by strategically blocking hex 
 - 📊 **Move Counter**: Track your progress
 - 🎨 **Responsive Design**: Play on desktop or mobile devices
 - ♿ **Accessible**: Full keyboard navigation support
+- 🧠 **Adaptive Difficulty**: The BFS pathfinding logic and seeded blockers
+  determine how aggressively the cat can escape
+- 🎚️ **Difficulty Presets**: Easy/Normal/Hard presets adjust seeded blockers;
+  more blockers create easier boards, fewer blockers make the cat harder to trap
+  and the **Start game** button regenerates the board with your choice
 
 ## 🚀 Getting Started
 
@@ -96,6 +102,18 @@ The game uses a **Breadth-First Search (BFS)** algorithm to:
 - Determine optimal cat movement
 - Check win/loss conditions
 
+## ⚙️ Difficulty System
+
+- Game difficulty explicitly ties to the BFS algorithm's path choosing; longer,
+  more open paths give the cat more escape options.
+- The number of predefined obstacles on the map (`INITIAL_BLOCKERS`) sets the
+  baseline challenge before the player makes a move—fewer blockers means a
+  harder board.
+- Tweaking either dimension lets you prototype easy, normal, or hard boards
+  without touching the rest of the logic.
+- The in-app difficulty selector wires directly to these presets; hit **Start
+  game** any time to regenerate the grid with the selected blocker count.
+
 ### Hexagonal Grid
 
 The game uses an **even-r (pointy-top)** hexagonal coordinate system:
@@ -116,10 +134,17 @@ const GRID_HEIGHT = 11
 
 ### Initial Blockers
 
-Change `INITIAL_BLOCKERS` to adjust starting difficulty:
+Change `DEFAULT_BLOCKERS` and the `DIFFICULTY_PRESETS` map to adjust global
+defaults and per-preset blocker counts:
 
 ```typescript
-const INITIAL_BLOCKERS = 10
+export const DEFAULT_BLOCKERS = 10
+
+const DIFFICULTY_PRESETS = {
+  easy: { label: 'Easy', blockers: 6 },
+  normal: { label: 'Normal', blockers: DEFAULT_BLOCKERS },
+  hard: { label: 'Hard', blockers: 14 },
+} as const
 ```
 
 ## 📝 Scripts
@@ -139,7 +164,6 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🙏 Acknowledgments
 
-- Inspired by the original Unity "Catch the Virus" mini-game
 - Built with modern React patterns and best practices
 
 ---
